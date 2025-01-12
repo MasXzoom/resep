@@ -1,0 +1,174 @@
+$engine: 3  
+$onesync: on  
+name: ESX Legacy dengan Overextended Inventory  
+author: ESX Framework  
+description: Resep resmi dari framework RP FiveM yang paling populer, ditingkatkan dengan Overextended Inventory dan fitur tambahan.  
+  
+tasks:  
+  # Unduh sumber daya CFX default  
+  - action: download_github  
+    src: https://github.com/citizenfx/cfx-server-data  
+    ref: master  
+    subpath: resources  
+    dest: ./resources/[cfx-default]  
+  - action: remove_path  
+    path: ./resources/[cfx-default]/[gameplay]/chat  
+    
+  # Unduh dan siapkan server.cfg / layar pemuatan / database  
+  - action: download_github  
+    src: https://github.com/esx-framework/esx-recipes  
+    ref: legacy  
+    dest: ./tmp/recipe  
+  
+  - action: move_path  
+    src: ./tmp/recipe/server.cfg  
+    dest: ./server.cfg  
+  
+  - action: move_path  
+    src: ./tmp/recipe/esxLogo.png  
+    dest: ./esxLogo.png  
+  
+  # Unduh sumber daya dasar dan ketergantungan ESX  
+  - action: connect_database  
+  
+  - action: download_github  
+    src: https://github.com/esx-framework/esx-core  
+    ref: main  
+    dest: ./tmp/core  
+  
+  - action: query_database  
+    file: ./tmp/core/[SQL]/legacy.sql  
+  
+  # Unduh addon ESX yang penting  
+  - action: download_github  
+    src: https://github.com/esx-framework/esx_addonaccount  
+    ref: main  
+    dest: ./tmp/addons/esx_addonaccount  
+  
+  - action: download_github  
+    src: https://github.com/esx-framework/esx_addoninventory  
+    ref: main  
+    dest: ./tmp/addons/esx_addoninventory  
+  
+  - action: download_github  
+    src: https://github.com/esx-framework/esx_datastore  
+    ref: main  
+    dest: ./tmp/addons/esx_datastore  
+  
+  # Addon pekerjaan  
+  - action: download_github  
+    src: https://github.com/esx-framework/esx_policejob  
+    ref: main  
+    dest: ./tmp/addons/esx_policejob  
+  
+  - action: download_github  
+    src: https://github.com/esx-framework/esx_ambulancejob  
+    ref: main  
+    dest: ./tmp/addons/esx_ambulancejob  
+  
+  - action: download_github  
+    src: https://github.com/esx-framework/esx_mechanicjob  
+    ref: main  
+    dest: ./tmp/addons/esx_mechanicjob  
+  
+  # Integrasi Overextended Inventory  
+  - action: download_github  
+    src: https://github.com/overextended/inventory  
+    ref: main  
+    dest: ./tmp/addons/overextended_inventory  
+  
+  - action: download_file  
+    path: ./tmp/files/esx_hud.zip  
+    url: https://github.com/esx-framework/esx_hud/releases/latest/download/esx_hud.zip  
+  - action: unzip  
+    dest: ./tmp/addons  
+    src: ./tmp/files/esx_hud.zip  
+  
+  # Melanjutkan pengunduhan addon yang diperlukan lainnya  
+  - action: download_github  
+    src: https://github.com/esx-framework/esx_property  
+    ref: main  
+    dest: ./tmp/addons/esx_property  
+  
+  - action: download_github  
+    src: https://github.com/esx-framework/esx_vehicleshop  
+    ref: main  
+    dest: ./tmp/addons/esx_vehicleshop  
+  
+  - action: download_github  
+    src: https://github.com/esx-framework/esx_banking  
+    ref: main  
+    dest: ./tmp/addons/esx_banking  
+  
+  # Sistem komunikasi  
+  - action: download_github  
+    src: https://github.com/AvarianKnight/pma-voice  
+    ref: main  
+    dest: ./resources/[standalone]/pma-voice  
+  
+  # Sistem kesehatan  
+  - action: download_github  
+    src: https://github.com/esx-framework/esx_basicneeds  
+    ref: main  
+    dest: ./tmp/addons/esx_basicneeds  
+  
+  # Sistem makanan dan minuman  
+  - action: download_github  
+    src: https://github.com/esx-framework/esx_optionalneeds  
+    ref: main  
+    dest: ./tmp/addons/esx_optionalneeds  
+  
+  # Sistem pekerjaan tambahan  
+  - action: download_github  
+    src: https://github.com/esx-framework/esx_drugs  
+    ref: main  
+    dest: ./tmp/addons/esx_drugs  
+  
+  - action: download_github  
+    src: https://github.com/esx-framework/esx_taxijob  
+    ref: main  
+    dest: ./tmp/addons/esx_taxijob  
+  
+  - action: download_github  
+    src: https://github.com/esx-framework/esx_barbershop  
+    ref: main  
+    dest: ./tmp/addons/esx_barbershop  
+  
+  # Sistem event dan aktivitas komunitas  
+  - action: download_github  
+    src: https://github.com/esx-framework/esx_joblisting  
+    ref: main  
+    dest: ./tmp/addons/esx_joblisting  
+  
+  # Penambahan ox_lib, ox_doorlock, dan ox_target  
+  - action: download_github  
+    src: https://github.com/overextended/ox_lib  
+    ref: main  
+    dest: ./tmp/addons/ox_lib  
+  
+  - action: download_github  
+    src: https://github.com/overextended/ox_doorlock  
+    ref: main  
+    dest: ./tmp/addons/ox_doorlock  
+  
+  - action: download_github  
+    src: https://github.com/overextended/ox_target  
+    ref: main  
+    dest: ./tmp/addons/ox_target  
+  
+  # Sumber daya tambahan  
+  - action: download_github  
+    src: https://github.com/overextended/oxmysql  
+    ref: main  
+    dest: ./tmp/addons/oxmysql  
+  
+  - action: download_file  
+    path: ./tmp/files/oxmysql.zip  
+    url: https://github.com/overextended/oxmysql/releases/latest/download/oxmysql.zip  
+  - action: unzip  
+    dest: ./resources/[standalone]  
+    src: ./tmp/files/oxmysql.zip  
+  
+  ## Pembersihan  
+  - action: remove_path  
+    path: ./tmp  
